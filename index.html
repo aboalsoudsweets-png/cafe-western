@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abo El-Saud Sweets | حلويات أبو السعود</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,500;1,600&family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          forest: '#1b2e1e',
+          'forest-deep': '#112014',
+          'forest-light': '#2a4530',
+          ivory: '#fdfbf7',
+          'ivory-soft': '#f6f0e4',
+          gold: '#cca464',
+          'gold-light': '#e9cd96',
+          'gold-deep': '#a9824c',
+          ink: '#241f18',
+        },
+        fontFamily: {
+          display: ['Playfair Display', 'serif'],
+          arabic: ['Amiri', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root{ --gold:#cca464; --gold-light:#e9cd96; --forest:#1b2e1e; }
+  *{ scroll-behavior:smooth; }
+  /* restored original light background */
+  body{ font-family:'Inter',sans-serif; background:#fdfbf7; color:#241f18; overflow-x:hidden; }
+  ::selection{ background:#cca464; color:#1b2e1e; }
+
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background:#f6f0e4; }
+  ::-webkit-scrollbar-thumb{ background:#cca464; border-radius:8px; }
+
+  .gold-text{
+    background:linear-gradient(120deg,#e9cd96,#cca464 45%,#a9824c);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .arabic{ font-family:'Amiri',serif; }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+  .d1{transition-delay:.05s}.d2{transition-delay:.15s}.d3{transition-delay:.25s}.d4{transition-delay:.35s}.d5{transition-delay:.45s}.d6{transition-delay:.55s}
+
+  @keyframes floaty{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
+  .floaty{ animation:floaty 5s ease-in-out infinite; }
+
+  @keyframes marquee{ 0%{ transform:translateX(0) } 100%{ transform:translateX(-50%) } }
+  .marquee-track{ animation:marquee 28s linear infinite; }
+
+  .nav-pill{ position:absolute; top:4px; bottom:4px; left:0; border-radius:9999px; background:rgba(204,164,100,.16); transition:transform .4s cubic-bezier(.22,1,.36,1), width .4s cubic-bezier(.22,1,.36,1); }
+
+  .card-hover{ transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease; }
+  .card-hover:hover{ transform:translateY(-8px); box-shadow:0 24px 48px -12px rgba(27,46,30,.18); }
+
+  input:focus, textarea:focus, button:focus-visible, a:focus-visible{ outline:2px solid #cca464; outline-offset:2px; }
+
+  .product-card.hidden-cat{ display:none; }
+
+  /* clickable category card */
+  .category-card {
+    cursor: pointer;
+    outline: none;
+  }
+  .category-card:focus {
+    box-shadow: 0 0 0 4px rgba(204,164,100,0.12);
+    transform: translateY(-6px);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+
+  /* يختفي شريط الفلاتر وأزراره تماماً */
+#filter-bar { display: none !important; }
+
+/* أو لو تحب تخفي الأزرار فقط وتترك المساحة: */
+/* #filter-bar .filter-btn { display: none !important; } */
+</style>
+</head>
+
+<body class="bg-ivory text-ink antialiased">
+
+<!-- ============ ICON SPRITE + DESIGN SYMBOL (no white background) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <symbol id="ic-cake" viewBox="0 0 100 100">
+    <path d="M22 78 L22 56 Q22 50 28 50 L72 50 Q78 50 78 56 L78 78 Z" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+    <path d="M22 64 Q30 58 38 64 Q46 70 54 64 Q62 58 70 64 Q74 67 78 64" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M30 50 L30 38 Q30 32 36 32 L64 32 Q70 32 70 38 L70 50" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+    <path d="M38 32 Q38 24 44 24" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <line x1="50" y1="32" x2="50" y2="18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M50 18 Q53 12 50 8 Q47 12 50 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ic-tart" viewBox="0 0 100 100">
+    <circle cx="50" cy="56" r="30" stroke="currentColor" stroke-width="2.6" fill="none"/>
+    <path d="M20 56 Q24 50 28 56 Q32 62 36 56 Q40 50 44 56 Q48 62 52 56 Q56 50 60 56 Q64 62 68 56 Q72 50 76 56 Q78 59 80 56" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="42" cy="42" r="3.4" stroke="currentColor" stroke-width="2.2" fill="none"/>
+    <circle cx="56" cy="38" r="3.4" stroke="currentColor" stroke-width="2.2" fill="none"/>
+    <circle cx="62" cy="50" r="3.4" stroke="currentColor" stroke-width="2.2" fill="none"/>
+    <path d="M38 50 Q44 44 50 50 Q56 56 50 62" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ic-macaron" viewBox="0 0 100 100">
+    <path d="M22 42 Q22 30 50 30 Q78 30 78 42 Q78 48 50 48 Q22 48 22 42 Z" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+    <path d="M24 50 Q34 56 50 56 Q66 56 76 50" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <path d="M22 58 Q22 70 50 70 Q78 70 78 58 Q78 52 50 52 Q22 52 22 58 Z" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="ic-eclair" viewBox="0 0 100 100">
+    <path d="M16 52 Q16 38 30 38 L70 38 Q84 38 84 52 Q84 66 70 66 L30 66 Q16 66 16 52 Z" stroke="currentColor" stroke-width="2.6" fill="none"/>
+    <path d="M24 44 Q32 50 40 44 Q48 38 56 44 Q64 50 72 44 Q76 41 80 44" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ic-leaf" viewBox="0 0 60 24">
+    <path d="M2 12 Q20 2 58 12 Q20 22 2 12 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+    <line x1="2" y1="12" x2="58" y2="12" stroke="currentColor" stroke-width="1.2"/>
+  </symbol>
+
+  <!-- design shadow symbol (n
+   o white bg) -->
+  <symbol id="ic-design-shadow" viewBox="0 0 200 200">
+    <path d="M26 132 C46 144 154 144 174 132 C174 132 174 136 174 136 C154 148 46 148 26 136 Z" fill="currentColor"/>
+    <path d="M38 92 C38 74 54 64 80 64 C106 64 122 74 122 92 C122 110 106 118 80 118 C54 118 38 110 38 92 Z" fill="currentColor"/>
+    <path d="M126 84 C140 84 148 96 140 108 C132 120 118 118 112 110 C120 106 124 94 126 84 Z" fill="currentColor"/>
+    <path d="M72 18 C70 10 80 4 84 0 C84 0 90 6 86 12 C82 18 74 22 72 18 Z" fill="currentColor"/>
+    <path d="M90 24 C88 16 98 10 102 6 C102 6 108 12 104 18 C100 24 92 28 90 24 Z" fill="currentColor"/>
+    <ellipse cx="146" cy="134" rx="10" ry="14" fill="currentColor"/>
+    <ellipse cx="166" cy="148" rx="8" ry="12" fill="currentColor"/>
+  </symbol>
+</defs>
+</svg>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 md:px-10">
+    <div class="mt-4 flex items-center justify-between rounded-full border border-gold/25 bg-forest/85 backdrop-blur-xl px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+
+      <!-- Logo: kept position & markup unchanged -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <img src="logo.png" alt="شعار حلويات أبو السعود" class="w-9 h-9 md:w-10 md:h-10 object-contain rounded-full">
+        <div class="leading-tight">
+          <div class="font-arabic text-lg md:text-xl text-ivory tracking-wide">أبو السعود</div>
+          <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-gold-light/80">Abo El-Saud Sweets</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav (unchanged) -->
+      <nav class="hidden lg:flex relative items-center gap-1 text-sm" id="desktop-nav">
+        <div class="nav-pill" id="nav-pill"></div>
+        <a data-nav href="#hero" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">الرئيسية</a>
+        <a data-nav href="#categories" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">الأقسام</a>
+        <a data-nav href="#menu" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">المنيو</a>
+        <a data-nav href="#about" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">قصتنا</a>
+        <a data-nav href="#visit" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">تواصل معنا</a>
+      </nav>
+
+      <!-- Right actions (unchanged) -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 rounded-full border border-gold/30 flex items-center justify-center text-gold-light" aria-label="Menu">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav overlay (unchanged) -->
+<div id="mobile-nav" class="fixed inset-0 z-[55] bg-forest/97 backdrop-blur-xl flex flex-col items-center justify-center gap-7 text-xl translate-x-full transition-transform duration-500 lg:hidden">
+  <button id="mobile-nav-close" class="absolute top-6 right-6 w-11 h-11 rounded-full border border-gold/30 flex items-center justify-center text-gold-light" aria-label="Close menu">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+  </button>
+  <a data-nav-mobile href="#hero" class="text-ivory/90 hover:text-gold-light font-display">الرئيسية</a>
+  <a data-nav-mobile href="#categories" class="text-ivory/90 hover:text-gold-light font-display">الأقسام</a>
+  <a data-nav-mobile href="#menu" class="text-ivory/90 hover:text-gold-light font-display">المنيو</a>
+  <a data-nav-mobile href="#about" class="text-ivory/90 hover:text-gold-light font-display">قصتنا</a>
+  <a data-nav-mobile href="#visit" class="text-ivory/90 hover:text-gold-light font-display">تواصل معنا</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative bg-gradient-to-b from-forest via-forest to-forest-deep pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden scroll-mt-24">
+  <div class="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full bg-gold/10 blur-3xl"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <!-- Text (unchanged) -->
+    <div>
+      <div class="reveal flex items-center gap-3 mb-6">
+        <span class="h-px w-10 bg-gold-light/60"></span>
+        <span class="text-gold-light text-xs uppercase tracking-[0.3em]">Cairo's Finest Western Patisserie</span>
+      </div>
+
+      <span class="gold-text">ABO ALSAUD </span><h1 class="reveal d1 font-arabic text-5xl md:text-6xl text-ivory leading-[1.3] mb-3">
+       SWEETS
+      </h1>
+      <p class="reveal d2 font-display italic text-2xl md:text-3xl text-gold-light/90 mb-6">A Symphony of French &amp; Western Pastry</p>
+
+      <div class="reveal d4 flex flex-wrap items-center gap-4 mb-10">
+        <a href="#menu" class="px-8 py-4 rounded-full bg-gold hover:bg-gold-light text-forest font-semibold text-sm tracking-wide transition-colors shadow-lg shadow-gold/20">
+          اكتشف المنيو
+        </a>
+      </div>
+
+      <div class="reveal d5 flex flex-wrap gap-x-8 gap-y-3 text-ivory/60 text-xs">
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-leaf"/></svg>مكونات فرنسية فاخرة</span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-leaf"/></svg>تحضير يومي طازج</span>
+      </div>
+    </div>
+
+    <!-- Visual / signature medallion: used uploaded image -->
+    <div class="reveal d3 relative flex justify-center lg:justify-end">
+      <div class="relative w-72 h-72 md:w-96 md:h-96">
+        <div class="absolute inset-0 rounded-full border border-gold-light/25"></div>
+        <div class="absolute inset-6 rounded-full border border-gold-light/15"></div>
+        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-ivory-soft/10 to-transparent"></div>
+        <div class="absolute inset-10 rounded-full bg-forest-light/40 flex items-center justify-center">
+          <img src="ديزاين.png" alt="ديزاين" class="w-40 h-40 md:w-52 md:h-52 object-contain">
+        </div>
+        <!-- orbit dots -->
+        <span class="absolute top-2 left-1/2 w-2.5 h-2.5 rounded-full bg-gold floaty"></span>
+        <span class="absolute bottom-6 left-6 w-2 h-2 rounded-full bg-gold-light floaty" style="animation-delay:1s"></span>
+        <span class="absolute top-10 right-2 w-2 h-2 rounded-full bg-gold-light floaty" style="animation-delay:2s"></span>
+      </div>
+
+      <!-- floating stat card (kept ivory background as original) -->
+      <div class="floaty absolute -bottom-4 left-0 md:left-4 bg-ivory/95 backdrop-blur rounded-2xl shadow-2xl px-5 py-4 flex items-center gap-3 border border-gold/10">
+        <div class="flex -space-x-1 text-gold">
+          <svg viewBox="0 0 20 20" class="w-4 h-4 fill-gold"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 14.9 4.4 18.1l1.4-6.3L1 7.5l6.4-.6z"/></svg>
+        </div>
+        <div class="leading-tight">
+          <div class="font-display font-bold text-forest text-sm">4.9 / 5</div>
+          <div class="text-[11px] text-forest/60">+500 عميل سعيد</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE STRIP ============ -->
+
+<!-- ============ CATEGORIES ============ -->
+<section id="categories" class="py-24 md:py-32 bg-ivory scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10">
+    <div class="reveal text-center max-w-xl mx-auto mb-16">
+      <span class="text-gold-deep text-xs uppercase tracking-[0.3em]">Our Categories</span>
+      <h2 class="font-display text-4xl md:text-5xl text-forest mt-3 mb-4">أقسام المشروبات</h2>
+      <p class="text-ink/60">قائمة مشروباتنا المميزة — اختر النوع الذي تحبه</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+      <!-- Hot & drinks: card is clickable and has data-explore="hot" -->
+      <div class="reveal d1 card-hover group rounded-3xl bg-ivory-soft border border-gold/15 p-8 flex flex-col items-center text-center category-card"
+           data-explore="hot" role="button" tabindex="0" aria-label="عرض المشروبات - Hot & drinks">
+        <div class="w-20 h-20 rounded-full bg-forest/5 border border-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">
+          <img src="ديزاين.png" alt="ديزاين" class="w-11 h-11 object-contain">
+        </div>
+        <h3 class="font-display text-xl text-forest mb-1">Hot &amp; drinks</h3>
+        <p class="arabic text-gold-deep text-sm mb-3">مشروبات ساخنة</p>
+        <p class="text-ink/55 text-sm leading-relaxed mb-6">تشكيلة واسعة من القهوة والشاي لتبدأ يومك بأفضل نكهة.</p>
+        <span class="mt-auto inline-flex items-center gap-2 text-forest font-semibold text-sm group-hover:text-gold-deep transition-colors">عرض المشروبات</span>
+      </div>
+
+      <!-- Farabiya -->
+      <div class="reveal d2 card-hover group rounded-3xl bg-forest text-ivory border border-gold/20 p-8 flex flex-col items-center text-center category-card"
+           data-explore="frappe" role="button" tabindex="0" aria-label="عرض الفرابيه - Farabiya">
+        <div class="w-20 h-20 rounded-full bg-ivory/5 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold/15 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-light"><use href="#ic-tart"/></svg>
+        </div>
+        <h3 class="font-display text-xl mb-1">Farabiya</h3>
+        <p class="arabic text-gold-light text-sm mb-3">فرابية</p>
+        <p class="text-ivory/55 text-sm leading-relaxed mb-6">مشروبات غنية ومميزة بنكهات مختارة.</p>
+        <span class="mt-auto inline-flex items-center gap-2 text-gold-light font-semibold text-sm group-hover:text-gold transition-colors">عرض الفرابيه</span>
+      </div>
+
+      <!-- Mojito -->
+      <div class="reveal d3 card-hover group rounded-3xl bg-ivory-soft border border-gold/15 p-8 flex flex-col items-center text-center category-card"
+           data-explore="mojito" role="button" tabindex="0" aria-label="عرض الموهيتو - Mojito">
+        <div class="w-20 h-20 rounded-full bg-forest/5 border border-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-deep"><use href="#ic-macaron"/></svg>
+        </div>
+        <h3 class="font-display text-xl text-forest mb-1">Mojito</h3>
+        <p class="arabic text-gold-deep text-sm mb-3">موهيتو</p>
+        <p class="text-ink/55 text-sm leading-relaxed mb-6">موهيتو بنكهات فريش ومنعشة.</p>
+        <span class="mt-auto inline-flex items-center gap-2 text-forest font-semibold text-sm group-hover:text-gold-deep transition-colors">عرض الموهيتو</span>
+      </div>
+
+      <!-- Ice & coffee -->
+      <div class="reveal d4 card-hover group rounded-3xl bg-forest text-ivory border border-gold/20 p-8 flex flex-col items-center text-center category-card"
+           data-explore="ice-coffee" role="button" tabindex="0" aria-label="عرض الآيس - Ice & coffee">
+        <div class="w-20 h-20 rounded-full bg-ivory/5 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold/15 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-light"><use href="#ic-eclair"/></svg>
+        </div>
+        <h3 class="font-display text-xl mb-1">Ice &amp; coffee</h3>
+        <p class="arabic text-gold-light text-sm mb-3">آيس كوفي</p>
+        <p class="text-ivory/55 text-sm leading-relaxed mb-6">آيس لاتيه، موكا، وابتكارات مثل لوتس ووايت موكا.</p>
+        <span class="mt-auto inline-flex items-center gap-2 text-gold-light font-semibold text-sm group-hover:text-gold transition-colors">عرض الآيس</span>
+      </div>
+
+
+       
+      <div class="reveal d3 card-hover group rounded-3xl bg-ivory-soft border border-gold/15 p-8 flex flex-col items-center text-center category-card"
+           data-explore="mojito" role="button" tabindex="0" aria-label="عرض الموهيتو - Mojito">
+        <div class="w-20 h-20 rounded-full bg-forest/5 border border-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-deep"><use href="#ic-macaron"/></svg>
+        </div>
+        <h3 class="font-display text-xl text-forest mb-1">milk &amp; shake</h3>
+        <p class="arabic text-gold-deep text-sm mb-3">ميلك شيك</p>
+        <p class="text-ink/55 text-sm leading-relaxed mb-6">ميلك شيك بنكهات فريش ومنعشة.</p>
+        <span class="mt-auto inline-flex items-center gap-2 text-forest font-semibold text-sm group-hover:text-gold-deep transition-colors">عرض الميلك شيك</span>
+      </div>
+
+      
+     
+       <!-- Ice & coffee -->
+      <div class="reveal d4 card-hover group rounded-3xl bg-forest text-ivory border border-gold/20 p-8 flex flex-col items-center text-center category-card"
+           data-explore="ice-coffee" role="button" tabindex="0" aria-label="عرض الآيس - Ice & coffee">
+        <div class="w-20 h-20 rounded-full bg-ivory/5 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold/15 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-light"><use href="#ic-eclair"/></svg>
+        </div>
+        <h3 class="font-display text-xl mb-1">Fresh &amp; juices</h3>
+        <p class="arabic text-gold-light text-sm mb-3"> عصاير فريش</p>
+        <p class="text-ivory/55 text-sm leading-relaxed mb-6">آيس لاتيه، موكا، وابتكارات مثل لوتس ووايت موكا.</p>
+        <span class="mt-auto inline-flex items-center gap-2 text-gold-light font-semibold text-sm group-hover:text-gold transition-colors">عرض الآيس</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU / PRODUCTS ============ -->
+<section id="menu" class="py-24 md:py-32 bg-ivory-soft scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10">
+    <div class="reveal text-center max-w-xl mx-auto mb-12">
+      <span class="text-gold-deep text-xs uppercase tracking-[0.3em]">Our Menu</span>
+      <h2 class="font-display text-4xl md:text-5xl text-forest mt-3 mb-4">منيو مشروبات</h2>
+      <p class="text-ink/60">اختر صنفك المفضلة</p>
+    </div>
+
+    <!-- filters (match category names used in PRODUCTS) -->
+    <div class="reveal flex flex-wrap justify-center gap-2 mb-12" id="filter-bar">
+      <button data-filter="all" class="filter-btn active-filter px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">الكل</button>
+      <button data-filter="hot" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">مشاريب ساخنة</button>
+      <button data-filter="frappe" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">فرابيه</button>
+      <button data-filter="ice-coffee" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">آيس كوفي</button>
+      <button data-filter="mojito" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">موهيتو</button>
+      <button data-filter="milkshake" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">ميلك شيك</button>
+      <button data-filter="fresh-juice" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">عصائر فريش</button>
+    </div>
+
+    <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT, FOOTER unchanged (kept original colors/placement) ============ -->
+<section id="about" class="py-24 md:py-32 bg-ivory scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal relative flex justify-center">
+      
+    </div>
+
+    <div>
+      <span class="reveal text-gold-deep text-xs uppercase tracking-[0.3em]">Our Story</span>
+      <h2 class="reveal d1 font-display text-4xl md:text-5xl text-forest mt-3 mb-6">حكاية شغف بدأت من قلب القاهرة</h2>
+      <p class="reveal d2 text-ink/65 leading-relaxed mb-6">
+        بدأت حلويات أبو السعود كحلم صغير لعائلة عاشقة للحلويات الغربية...
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-forest-deep text-ivory pt-16 pb-8">
+  <div class="mx-auto max-w-7xl px-6 md:px-10 grid md:grid-cols-4 gap-10 mb-12">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <img src="logo.png" alt="شعار حلويات أبو السعود" class="w-9 h-9">
+        <span class="font-arabic text-lg">أبو السعود</span>
+      </div>
+    </div>
+
+   
+
+    <div>
+      <h4 class="font-display text-gold-light mb-4">تواصل معنا</h4>
+      <ul class="space-y-2 text-sm text-ivory/55">
+        <li>+20 1070100112</li>
+        
+        <li> شارع 45 دكتور عبدللهالعربي</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-display text-gold-light mb-4">مواعيد العمل</h4>
+      <ul class="space-y-2 text-sm text-ivory/55">
+        <li>يوميًا: 11:00 ص – 1:00 ص</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-ivory/10 pt-6 text-center text-ivory/40 text-xs">
+    © 2026 Abo El-Saud Sweets — حلويات أبو السعود. جميع الحقوق محفوظة.
+  </div>
+</footer>
+
+<!-- ============ SCRIPT: renderProducts + filter + explore handlers ============ -->
+<script>
+/* ======================= PRODUCTS (from your input) ======================= */
+const PRODUCTS = [
+  { id:100, category:'hot', name:'إسبريسو سنجل', description:'', price:'50', image:'sepress0.jpg' },
+  { id:101, category:'hot', name:'إسبريسو دبل', description:'', price:'80', image:'sepresd.jpg' },
+  { id:2, category:'hot', name:'قهوة تركي سنجل', description:'', price:'50', image:'qahwasngel10.png' },
+  { id:3, category:'hot', name:'قهوة تركي دبل', description:'', price:'80', image:'qahwadabel10.png' },
+  { id:12, category:'hot', name:'قهوة غزاوي دبل', description:'', price:'80', image:'amerekan10.jpg' },
+  { id:11, category:'hot', name:'قهوة غزاوي سنجل', description:'', price:'50', image:'aspresosengl20.png' },
+  { id:4, category:'hot', name:'نسكافية', description:'', price:'80', image:'neska.jpg' },
+  { id:5, category:'hot', name:'قهوة فرنساوي', description:'', price:'80', image:'lat.png' },
+  { id:15, category:'hot', name:'كابيتشينو', description:'', price:'90', image:'lateh10.jpg' },
+  { id:13, category:'hot', name:'لاتيه', description:'', price:'95', image:'faransawe0.jpg' },
+  { id:17, category:'hot', name:'شاي', description:'', price:'45', image:'shay.png' },
+  { id:18, category:'hot', name:'شاي بالنعنع', description:'', price:'50', image:'shaynaana.png' },
+  { id:800, category:'hot', name:'هوت سيدر', description:'', price:'75', image:'images.png' },
+  { id:20, category:'hot', name:'شاي بحليب', description:'', price:'75', image:'shayblabn.png' },
+  { id:6, category:'hot', name:'ينسون', description:'', price:'50', image:'yanson.jpg' },
+  { id:7, category:'hot', name:'كركديه', description:'', price:'50', image:'karkad.jpg' },
+  { id:8, category:'hot', name:'قرفه', description:'', price:'50', image:'qwrfa.jpg' },
+  { id:9, category:'hot', name:'جنزبيل', description:'', price:'50', image:'ganz.jpg' },
+  { id:10, category:'hot', name:'اعشاب', description:'', price:'60', image:'aashap.png' },
+  { id:16, category:'hot', name:'هوت شوكليت', description:'', price:'80', image:'shoklet.png' },
+  { id:19, category:'hot', name:'حليب ساخن', description:'', price:'60', image:'laban.png' },
+
+  { id:21, category:'frappe', name:'فرابيه كلاسيك', description:'', price:'80', image:'1.png' },
+  { id:22, category:'frappe', name:'فرابيه نوتيلا', description:'', price:'95', image:'2.png' },
+  { id:23, category:'frappe', name:'فرابيه لوتس', description:'', price:'95', image:'3.png' },
+  { id:24, category:'frappe', name:'فرابيه بندق', description:'', price:'95', image:'4.png' },
+  { id:25, category:'frappe', name:'فرابيه فانيليا', description:'', price:'95', image:'5.png' },
+  { id:26, category:'frappe', name:'فرابيه كراميل', description:'', price:'95', image:'6.png' },
+  { id:27, category:'frappe', name:'فرابيه شوكليت', description:'', price:'95', image:'7.png' },
+
+  { id:28, category:'ice-coffee', name:'ايس كافيه', description:'', price:'80', image:'8.png' },
+  { id:29, category:'ice-coffee', name:'آيس لاتيه', description:'', price:'90', image:'9.png' },
+  { id:31, category:'ice-coffee', name:'ايس لوتس', description:'', price:'90', image:'10.png' },
+  { id:33, category:'ice-coffee', name:'ايس وايت موكا', description:'', price:'90', image:'11.png' },
+
+  { id:69, category:'mojito', name:'موهيتو كلاسيك', description:'', price:'100', image:'klas.jpg' },
+  { id:70, category:'mojito', name:'موهيتو بلو بيري', description:'', price:'100', image:'13.png' },
+  { id:71, category:'mojito', name:'موهيتو باشون', description:'', price:'100', image:'55.png' },
+  { id:37, category:'mojito', name:'موهيتو فراوله', description:'', price:'100', image:'14.png' },
+  { id:38, category:'mojito', name:'موهيتو اناناس', description:'', price:'100', image:'15.png' },
+  { id:90, category:'mojito', name:'موهيتو بطيخ', description:'', price:'100', image:'1000.png' },
+  { id:40, category:'mojito', name:'موهيتو تفاح', description:'', price:'100', image:'16.png' },
+  { id:41, category:'mojito', name:'موهيتو مانجه', description:'', price:'100', image:'17.png' },
+  { id:42, category:'mojito', name:'موهيتو خوخ', description:'', price:'100', image:'18.png' },
+
+  { id:43, category:'milkshake', name:'ميلك شيك فراولة', description:'', price:'95', image:'19.png' },
+  { id:44, category:'milkshake', name:'ميلك شيك شوكولاتة', description:'', price:'95', image:'20.png' },
+  { id:45, category:'milkshake', name:'ميلك شيك مانجة', description:'', price:'95', image:'21.png' },
+  { id:46, category:'milkshake', name:'ميلك شيك فانيليا', description:'', price:'95', image:'22.png' },
+  { id:47, category:'milkshake', name:'ميلك شيك لوتس', description:'', price:'95', image:'23.png' },
+  { id:48, category:'milkshake', name:'ميلك شيك نوتيلا', description:'', price:'95', image:'24.png' },
+  { id:49, category:'milkshake', name:'ميلك شيك بلو بيري', description:'', price:'95', image:'25.png' },
+
+  { id:51, category:'fresh-juice', name:'عصير زبادي سادة', description:'', price:'70', image:'ppp.png' },
+  { id:52, category:'fresh-juice', name:'عصير زبادي فواكة', description:'', price:'90', image:'ppo.png' },
+  { id:50, category:'fresh-juice', name:'ليمون بالنعنع', description:'', price:'70', image:'26.png' },
+];
+
+/* ======================= RENDER PRODUCTS ======================= */
+const grid = document.getElementById('product-grid');
+function renderProducts(){
+  grid.innerHTML = PRODUCTS.map((p,i)=>{
+    const imgSrc = p.image ? `assets/${p.image}` : null;
+    const iconHtml = imgSrc
+      ? `<img src="${imgSrc}" alt="${p.name}" class="w-20 h-20 object-contain">`
+      : `<img src="ديزاين.png" alt="${p.name}" class="w-20 h-20 object-contain">`;
+
+    const dataCat = p.category || 'all';
+
+    return `
+    <div class="product-card reveal d${(i%4)+1} show card-hover rounded-3xl bg-white border border-gold/15 p-6 flex flex-col" data-cat="${dataCat}">
+      <div class="relative mb-5">
+        <div class="w-full h-32 rounded-2xl bg-ivory-soft flex items-center justify-center">
+          ${iconHtml}
+        </div>
+      </div>
+      <h4 class="font-display text-lg text-forest mb-0.5">${p.name}</h4>
+      <p class="arabic text-gold-deep text-sm mb-3">${p.price} ج.م</p>
+      <div class="flex items-center justify-between mt-auto pt-3">
+      
+      </div>
+    </div>`;
+  }).join('');
+}
+renderProducts();
+
+/* ======================= FILTER ======================= */
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    filterBtns.forEach(b=>b.classList.remove('active-filter'));
+    btn.classList.add('active-filter');
+    const cat = btn.dataset.filter;
+    document.querySelectorAll('.product-card').forEach(card=>{
+      const match = cat === 'all' || card.dataset.cat === cat;
+      card.classList.toggle('hidden-cat', !match);
+    });
+  });
+});
+function styleFilterButtons(){
+  filterBtns.forEach(b=>{
+    if(b.classList.contains('active-filter')){
+      b.classList.add('bg-forest','text-ivory'); b.classList.remove('text-forest');
+    } else {
+      b.classList.remove('bg-forest','text-ivory'); b.classList.add('text-forest');
+    }
+  });
+}
+filterBtns.forEach(b=>b.addEventListener('click', styleFilterButtons));
+document.querySelector('[data-filter="all"]').classList.add('active-filter');
+styleFilterButtons();
+
+/* ======================= CATEGORY CARDS: click + keyboard handler ======================= */
+document.querySelectorAll('[data-explore]').forEach(el=>{
+  const openCategory = ()=>{
+    const cat = el.dataset.explore;
+    document.getElementById('menu').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>{
+      const target = document.querySelector(`.filter-btn[data-filter="${cat}"]`);
+      if(target) target.click();
+    }, 450);
+  };
+
+  el.addEventListener('click', (e)=>{
+    openCategory();
+  });
+
+  el.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+      e.preventDefault();
+      openCategory();
+    }
+  });
+});
+
+/* ========== rest (nav, mobile, reveal, counters) unchanged ========== */
+const navLinks = document.querySelectorAll('#desktop-nav [data-nav]');
+const navPill = document.getElementById('nav-pill');
+function movePill(link){ if(!link) return; navPill.style.width = link.offsetWidth + 'px'; navPill.style.transform = `translateX(${link.offsetLeft}px)`; }
+const sections = ['hero','categories','menu','about','visit'].map(id=>document.getElementById(id));
+function setActiveNav(id){ let active = null; navLinks.forEach(l=>{ if(l.getAttribute('href') === '#'+id) active = l; }); if(active) movePill(active); }
+const spy = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ setActiveNav(entry.target.id); } }); }, { rootMargin: '-40% 0px -50% 0px' });
+sections.forEach(s=> s && spy.observe(s));
+window.addEventListener('load', ()=> movePill(navLinks[0]));
+window.addEventListener('resize', ()=>{ const current = [...navLinks].find(l=> l.classList.contains('is-current')) || navLinks[0]; movePill(current); });
+
+const mobileNav = document.getElementById('mobile-nav');
+document.getElementById('mobile-menu-btn').addEventListener('click', ()=> mobileNav.classList.remove('translate-x-full'));
+document.getElementById('mobile-nav-close').addEventListener('click', ()=> mobileNav.classList.add('translate-x-full'));
+document.querySelectorAll('[data-nav-mobile]').forEach(l=> l.addEventListener('click', ()=> mobileNav.classList.add('translate-x-full')));
+
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('show'); revealObserver.unobserve(entry.target); } }); }, { threshold: 0.12 });
+revealEls.forEach(el=> revealObserver.observe(el));
+window.addEventListener('DOMContentLoaded', ()=>{ document.querySelectorAll('#hero .reveal').forEach(el=> el.classList.add('show')); });
+
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ const el = entry.target; const target = parseInt(el.dataset.target); let current = 0; const step = Math.max(1, Math.round(target/40)); const tick = ()=>{ current += step; if(current >= target){ el.textContent = target; } else { el.textContent = current; requestAnimationFrame(tick); } }; tick(); counterObserver.unobserve(el); } }); }, { threshold: 0.4 });
+counters.forEach(c=> counterObserver.observe(c));
+</script>
+</body>
+</html>
